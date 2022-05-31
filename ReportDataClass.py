@@ -78,9 +78,13 @@ class ReportData:
             self.d.swipe(0.673, 0.688, 0.686, 0.393, duration=0.2)
             self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/xiangqing_btn"]').click()
             sleep()
-            self.d.xpath('//*[@text="办结"]').click()
-            sleep()
-            self.state = 4
+            # self.d.xpath('//*[@text="办结"]').click()
+            isbanjie = self.d.xpath('//*[@text="办结"]').exists
+            if isbanjie == True:
+                self.d.xpath('//*[@text="办结"]').click()
+                sleep()
+            elif isbanjie ==  False:
+                log.write('事件无法办结')
         except:
             log.write('未找到办结按钮')
 
@@ -106,6 +110,7 @@ class ReportData:
         except:
             log.write("未找到确定按钮")
 
+
     # 获取待办事件列表
     def eventlist(self):
         try:
@@ -115,6 +120,41 @@ class ReportData:
             return have
         except:
             log.write("未打开页面")
+
+
+
+    # 点击指定事件
+    def clickevent(self,i):
+        try:
+            path = f'//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[{i}]/android.widget.RelativeLayout[1]'
+            self.d.xpath(path).click()
+            sleep()
+            self.state = 4
+        except:
+            log.write('未找到事件')
+
+
+
+    # 获取办结页提示信息
+    def eventcomplete(self):
+        try:
+            completemessage = self.d.toast.get_message()  # 获取提示信息
+            log.write(completemessage)
+            if completemessage == '请完善矛盾纠纷类事件补充信息':
+                log.write('事件无法办结')
+                return True
+        except:
+            log.write("无提示信息")
+            return False
+
+
+
+    # 返回到待处理事件列表
+    def back(self):
+        self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/img_fanhui"]').click()
+        sleep()
+        self.d.xpath('//*[@content-desc="转到上一层级"]').click()
+
 
 
     # 退出

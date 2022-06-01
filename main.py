@@ -9,7 +9,7 @@ if __name__ == '__main__':
     list = dt()
     nrows = list.read_data_nrows()
 
-    for i in range(108, nrows):
+    for i in range(68, nrows):
         phone = list.read_data(i)
         log.write("{0}开始操作APP{0}".format("*" * 10))
         report = ReportData()
@@ -20,8 +20,8 @@ if __name__ == '__main__':
         if message == '当前网络名称:WIFI':
             report.goto_disposal()  # 待办事件按钮
             p = 1
-            for j in range(100):
-                eventcount = report.eventlist()  # 获取事件列表
+            for j in range(50):
+                eventcount = report.eventlist(p)  # 获取事件列表
                 time.sleep(3)
                 if eventcount == True:  # 存在事件
                     report.clickevent(p)  # 点击事件
@@ -37,6 +37,7 @@ if __name__ == '__main__':
                             list.tag_submit(i)  # 统计办结成功数
                 elif eventcount == False:
                     log.write('无待办事件')
+                    break
 
                 # report.logout() # 退出登录
             report.stop_app()  # 停止APP

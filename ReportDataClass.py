@@ -4,6 +4,7 @@ import time
 from GetDataClass import *
 from GetDataClass import *
 
+
 def sleep():
     time.sleep(2)
 
@@ -20,7 +21,6 @@ class ReportData:
         self.d.app_clear('com.wanggeyuan.zongzhi')
         log.write("清除APP缓存")
 
-
     # 打开APP，定位在登录页
     def open_app(self):
         try:
@@ -32,7 +32,7 @@ class ReportData:
             log.write('启动APP失败')
 
     # 登陆
-    def login(self,username,password):  # ,username,password
+    def login(self, username, password):  # ,username,password
         # 用户名
         self.d(resourceId="com.wanggeyuan.zongzhi:id/username_et").click()
         sleep()
@@ -44,33 +44,31 @@ class ReportData:
         # 点登录
         self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/login_btn"]').click()
         sleep()
-        message = self.d.toast.get_message() # 获取提示信息
+        message = self.d.toast.get_message()  # 获取提示信息
         log.write(message)
         log.write("登录账号：{0}".format(username))
         self.state = 2
         return message
 
-
     # 待办事件按钮
     def goto_disposal(self):
         try:
-            self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/gridview"]/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.ImageView[1]').click()
+            self.d.xpath(
+                '//*[@resource-id="com.wanggeyuan.zongzhi:id/gridview"]/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.ImageView[1]').click()
             sleep()
             self.state = 3
         except:
             log.write('未找到待办事件按钮')
 
-
-
     # 点击事件
     def fill_in_disposal(self):
         try:
-            self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]').click()
+            self.d.xpath(
+                '//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]').click()
             sleep()
             self.state = 4
         except:
             log.write('未找到事件')
-
 
     # 办结按钮
     def next(self):
@@ -83,11 +81,10 @@ class ReportData:
             if isbanjie == True:
                 self.d.xpath('//*[@text="办结"]').click()
                 sleep()
-            elif isbanjie ==  False:
+            elif isbanjie == False:
                 log.write('事件无法办结')
         except:
             log.write('未找到办结按钮')
-
 
     # 填写办结描述
     def write_Event(self):
@@ -99,7 +96,6 @@ class ReportData:
         except:
             log.write("未找到输入框")
 
-
     # 确定办结
     def submit(self):
         try:
@@ -110,21 +106,20 @@ class ReportData:
         except:
             log.write("未找到确定按钮")
 
-
     # 获取待办事件列表
-    def eventlist(self):
+    def eventlist(self, i):
         try:
-            self.d.app_start('com.wanggeyuan.zongzhi', 'com.wanggeyuan.zongzhi /.ZZModule.shangbaomodule.ui.ShangBaoListActivity')
+            self.d.app_start('com.wanggeyuan.zongzhi',
+                             'com.wanggeyuan.zongzhi /.ZZModule.shangbaomodule.ui.ShangBaoListActivity')
             sleep()
-            have = self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]').exists
+            path = f'//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[{i}]/android.widget.RelativeLayout[1]'
+            have = self.d.xpath(path).exists
             return have
         except:
             log.write("未打开页面")
 
-
-
     # 点击指定事件
-    def clickevent(self,i):
+    def clickevent(self, i):
         try:
             path = f'//*[@resource-id="com.wanggeyuan.zongzhi:id/recycleview_lv"]/android.widget.LinearLayout[{i}]/android.widget.RelativeLayout[1]'
             self.d.xpath(path).click()
@@ -132,7 +127,6 @@ class ReportData:
             self.state = 4
         except:
             log.write('未找到事件')
-
 
 
     # 获取办结页提示信息
@@ -147,15 +141,11 @@ class ReportData:
             log.write("无提示信息")
             return False
 
-
-
     # 返回到待处理事件列表
     def back(self):
         self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/img_fanhui"]').click()
         sleep()
         self.d.xpath('//*[@content-desc="转到上一层级"]').click()
-
-
 
     # 退出
     def logout(self):
@@ -176,7 +166,7 @@ class ReportData:
         self.d.app_stop("com.wanggeyuan.zongzhi")
         self.state = 10
 
+
 if __name__ == '__main__':
     rep = ReportData()
     rep.app_clear()
-

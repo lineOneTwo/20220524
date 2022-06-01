@@ -82,7 +82,11 @@ class ReportData:
                 self.d.xpath('//*[@text="办结"]').click()
                 sleep()
             elif isbanjie == False:
+                self.d.xpath('//*[@text="下一步"]').click()
+                sleep()
+                self.d.xpath('//*[@content-desc="转到上一层级"]').click()
                 log.write('事件无法办结')
+                return False
         except:
             log.write('未找到办结按钮')
 
@@ -117,6 +121,7 @@ class ReportData:
             return have
         except:
             log.write("未打开页面")
+
 
     # 点击指定事件
     def clickevent(self, i):

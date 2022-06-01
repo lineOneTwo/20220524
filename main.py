@@ -3,13 +3,12 @@ from GetDataClass import data as dt
 import logger
 import time
 
-
 if __name__ == '__main__':
     log = logger.Logger()
     list = dt()
     nrows = list.read_data_nrows()
 
-    for i in range(68, nrows):
+    for i in range(72, nrows):
         phone = list.read_data(i)
         log.write("{0}开始操作APP{0}".format("*" * 10))
         report = ReportData()
@@ -25,7 +24,10 @@ if __name__ == '__main__':
                 time.sleep(3)
                 if eventcount == True:  # 存在事件
                     report.clickevent(p)  # 点击事件
-                    report.next()  # 选择办结
+                    isbanjie = report.next()
+                    if isbanjie == False:  # 未找到办结按钮
+                        p = p + 1
+                        continue
                     eventtext = report.eventcomplete()  # 获取办结页提示信息
                     if eventtext == True:  # 未获取到提示信息
                         p = p + 1  # 切换事件角标
@@ -44,5 +46,3 @@ if __name__ == '__main__':
         else:
             list.tag_login_error(i)
             continue
-
-

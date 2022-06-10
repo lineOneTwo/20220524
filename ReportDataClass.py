@@ -73,7 +73,7 @@ class ReportData:
     # 办结按钮
     def next(self):
         try:
-            self.d.swipe(0.673, 0.688, 0.686, 0.393, duration=0.2)
+            self.d.swipe(0.673, 0.688, 0.673, 0.293, duration=0.2)
             self.d.xpath('//*[@resource-id="com.wanggeyuan.zongzhi:id/xiangqing_btn"]').click()
             sleep()
             # self.d.xpath('//*[@text="办结"]').click()

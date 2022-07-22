@@ -7,9 +7,9 @@ if __name__ == '__main__':
     log = logger.Logger()
     list = dt()
     nrows = list.read_data_nrows()
-    num = [160, 173, 54, 72]  # 54  72
-    for i in range(len(num)):
-        phone = list.read_data(num[i])
+    # num = [160, 173, 54, 72]  # 54  72
+    for i in range(1, nrows):  # len(num)
+        phone = list.read_data(i)  # num[i]
         log.write("{0}开始操作APP{0}".format("*" * 10))
         report = ReportData()
         report.app_clear()
@@ -36,7 +36,7 @@ if __name__ == '__main__':
                         report.write_Event()  # 填写办结描述
                         submitresult = report.submit()  # 确定办结
                         if submitresult == '办结成功':
-                            list.tag_submit(num[i])  # 统计办结成功数
+                            list.tag_submit(i)  # 统计办结成功数  nnum[i]
                 elif eventcount == False:
                     log.write('无待办事件')
                     break
@@ -44,5 +44,5 @@ if __name__ == '__main__':
                 # report.logout() # 退出登录
             report.stop_app()  # 停止APP
         else:
-            list.tag_login_error(num[i])
+            list.tag_login_error(i)   #num[i]
             continue

@@ -122,7 +122,6 @@ class ReportData:
         except:
             log.write("未打开页面")
 
-
     # 点击指定事件
     def clickevent(self, i):
         try:
@@ -132,7 +131,6 @@ class ReportData:
             self.state = 4
         except:
             log.write('未找到事件')
-
 
     # 获取办结页提示信息
     def eventcomplete(self):

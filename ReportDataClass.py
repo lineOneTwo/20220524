@@ -2,12 +2,10 @@ import uiautomator2 as u2
 import random
 import time
 from GetDataClass import *
-from GetDataClass import *
 
 
 def sleep():
     time.sleep(2)
-
 
 class ReportData:
     state = 0

@@ -6,6 +6,7 @@ import time
 if __name__ == '__main__':
     log = logger.Logger()
     list = dt()
+    # 返回xls的行数为nrows
     nrows = list.read_data_nrows()
     # num = [160, 173, 54, 72]  # 54  72
     for i in range(1, nrows):  # len(num)
@@ -46,3 +47,4 @@ if __name__ == '__main__':
         else:
             list.tag_login_error(i)   #num[i]
             continue
+

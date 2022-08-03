@@ -8,9 +8,8 @@ if __name__ == '__main__':
     list = dt()
     # 返回xls的行数为nrows
     nrows = list.read_data_nrows()
-    # num = [160, 173, 54, 72]  # 54  72
-    for i in range(1, nrows):  # len(num)
-        phone = list.read_data(i)  # num[i]
+    for i in range(1, nrows):
+        phone = list.read_data(i)
         log.write("{0}开始操作APP{0}".format("*" * 10))
         report = ReportData()
         report.app_clear()
@@ -45,6 +44,6 @@ if __name__ == '__main__':
                 # report.logout() # 退出登录
             report.stop_app()  # 停止APP
         else:
-            list.tag_login_error(i)   #num[i]
+            list.tag_login_error(i)
             continue
 
